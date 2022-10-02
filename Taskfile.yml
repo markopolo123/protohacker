@@ -1,0 +1,6 @@
+version: "3"
+
+includes:
+  terraform:
+    taskfile: ./terraform/Taskfile.yml # will look for ./terraform/Taskfile.yml
+    dir: ./terraform

@@ -1,0 +1,30 @@
+version: "3"
+
+tasks:
+  init:
+    desc: init terraform
+    cmds:
+      - terraform init -upgrade
+  plan:
+    desc: plan terraform
+    deps: [init]
+    cmds:
+      - terraform plan
+  apply:
+    deps: [init]
+    desc: create droplet
+    cmds:
+      - terraform apply --auto-approve
+  destroy:
+    desc: destroy droplet
+    cmds:
+      - terraform destroy --auto-approve
+  docs:
+    desc: create terraform docs in README.md
+    cmds:
+      - terraform-docs markdown --output-file README.md .
+  ssh:
+    desc: SSH into droplet
+    deps: [apply]
+    cmds:
+      - ssh root@$(terraform output --raw droplet_ipv4_address)
